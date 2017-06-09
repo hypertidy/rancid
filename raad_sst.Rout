@@ -1,0 +1,72 @@
+
+R version 3.3.1 (2016-06-21) -- "Bug in Your Hair"
+Copyright (C) 2016 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+[Previously saved workspace restored]
+
+> path <- "/mnt/raad_3121"
+> 
+> library(raadtools)
+Loading required package: raster
+Loading required package: sp
+> sf <- sstfiles()
+> 
+> 
+> ncks <- function(file, outpath, varname, clobber = FALSE, extras = "") {
++   outpath <-  file.path(outpath, basename(dirname(dirname(file))))
++   if (!file.exists(outpath)) dir.create(outpath)
++   outfile <- file.path(outpath, sprintf("%s_%s", varname, basename(file)))
++ 
++   
++   extras <- sprintf("%s -v %s", extras, varname)
++   if (clobber) {
++     extras <- paste(extras, "-O")
++   } else {
++     if (file.exists(outfile)) {
++       return(1)
++     }
++   }
++   cmd <- sprintf("ncks %s %s %s", extras, file, outfile) 
++   #print(cmd)
++   tst <- system(cmd)
++   tst <- 1
++   if (tst == 0) outfile else tst
++ }
+> 
+> for (i in seq(nrow(sf))) {
++ ncks(sf$fullname[i], path, "sst", extras = "--netcdf4 -L 1 --mk_rec_dmn time", clobber = FALSE)
++   if (i %% 1000 == 0) print(i)
++ }
+[1] 1000[1] 2000
+[1] 3000
+[1] 4000
+[1] 5000
+[1] 6000
+[1] 7000
+[1] 8000
+[1] 9000
+[1] 10000
+[1] 11000
+[1] 12000
+> 
+> 
+> 
+> 
+> proc.time()
+    user   system  elapsed 
+ 752.196  566.016 1603.956 
