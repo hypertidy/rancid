@@ -8,8 +8,11 @@
 #' @export
 #'
 #' @examples
-#' x <- "/rdsi/PRIVATE/raad/data/eclipse.ncdc.noaa.gov/pub/OI-daily-v2/NetCDF/2017/AVHRR/avhrr-only-v2.20170607_preliminary.nc"
+#' x <- file.path("/rdsi/PRIVATE/raad/data",
+#' "eclipse.ncdc.noaa.gov/pub/OI-daily-v2/NetCDF/2017/AVHRR",
+#' "avhrr-only-v2.20170607_preliminary.nc")
 #' nc_meta(x)
+#' @importFrom RNetCDF open.nc close.nc
 nc_meta <- function(x) {
   ## just what is required
   con <- RNetCDF::open.nc(x)
