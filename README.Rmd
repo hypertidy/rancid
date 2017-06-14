@@ -12,9 +12,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-[![Travis-CI Build Status](https://travis-ci.org/mdsumner/rancid.svg?branch=master)](https://travis-ci.org/mdsumner/rancid)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mdsumner/rancid?branch=master&svg=true)](https://ci.appveyor.com/project/mdsumner/rancid)
-[![Coverage Status](https://img.shields.io/codecov/c/github/mdsumner/rancid/master.svg)](https://codecov.io/github/mdsumner/rancid?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/hypertidy/rancid.svg?branch=master)](https://travis-ci.org/hypertidy/rancid)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/hypertidy/rancid?branch=master&svg=true)](https://ci.appveyor.com/project/hypertidy/rancid)
+[![Coverage Status](https://img.shields.io/codecov/c/github/hypertidy/rancid/master.svg)](https://codecov.io/github/hypertidy/rancid?branch=master)
 
 
 # R And NetCDF Interface Development

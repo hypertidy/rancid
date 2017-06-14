@@ -1,6 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Travis-CI Build Status](https://travis-ci.org/mdsumner/rancid.svg?branch=master)](https://travis-ci.org/mdsumner/rancid) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/mdsumner/rancid?branch=master&svg=true)](https://ci.appveyor.com/project/mdsumner/rancid) [![Coverage Status](https://img.shields.io/codecov/c/github/mdsumner/rancid/master.svg)](https://codecov.io/github/mdsumner/rancid?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/hypertidy/rancid.svg?branch=master)](https://travis-ci.org/hypertidy/rancid) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/hypertidy/rancid?branch=master&svg=true)](https://ci.appveyor.com/project/hypertidy/rancid) [![Coverage Status](https://img.shields.io/codecov/c/github/hypertidy/rancid/master.svg)](https://codecov.io/github/hypertidy/rancid?branch=master)
 
 R And NetCDF Interface Development
 ==================================
@@ -13,7 +13,20 @@ Create an object that has a complete description of the file so that we can easi
 
 ``` r
 library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 library(rancid)
+#> 
+#> Attaching package: 'rancid'
+#> The following object is masked from 'package:dplyr':
+#> 
+#>     vars
 
 ifile <- system.file("extdata", "S2008001.L3m_DAY_CHL_chlor_a_9km.nc", package = "rancid")
 nc <- NetCDF(ifile)
@@ -22,7 +35,7 @@ nc <- NetCDF(ifile)
 ``` r
 ## tidyverse steals a name again
 rancid::vars(nc)
-#> # A tibble: 2 × 18
+#> # A tibble: 2 x 18
 #>      name ndims natts          prec   units
 #>     <chr> <int> <int>         <chr>   <chr>
 #> 1 chlor_a     2    12         float mg m^-3
@@ -33,7 +46,7 @@ rancid::vars(nc)
 #> #   addOffset <dbl>, hasScaleFact <lgl>, scaleFact <dbl>, id <dbl>
 
 dims(nc)
-#> # A tibble: 4 × 7
+#> # A tibble: 4 x 7
 #>            name   len unlim group_index group_id    id create_dimvar
 #>           <chr> <int> <lgl>       <int>    <int> <int>         <lgl>
 #> 1           lat  2160 FALSE           1    65536     0          TRUE
@@ -43,7 +56,7 @@ dims(nc)
 
 ## perform a join of variable to dimension, keeping only the varname and id
 rancid::vars(nc) %>% dplyr::filter(name == "chlor_a") %>% transmute(varname = name, id) %>%  inner_join(nc$vardim, "id") %>% inner_join(dims(nc), c("dimids" = "id"))
-#> # A tibble: 2 × 9
+#> # A tibble: 2 x 9
 #>   varname    id dimids  name   len unlim group_index group_id
 #>     <chr> <dbl>  <int> <chr> <int> <lgl>       <int>    <int>
 #> 1 chlor_a     0      1   lon  4320 FALSE           1    65536
